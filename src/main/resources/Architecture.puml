@@ -1,0 +1,68 @@
+@startuml
+!pragma layout smetana
+
+' --- CONFIGURAÇÕES VISUAIS ---
+skinparam linetype ortho
+skinparam shadowing false
+skinparam nodesep 120
+skinparam ranksep 100
+hide empty members
+
+' --- CORES POR CAMADA ---
+skinparam class {
+    BackgroundColor<<Entity>> #E3F2FD
+    BackgroundColor<<Repository>> #F1F8E9
+    BackgroundColor<<Service>> #FFF3E0
+    BackgroundColor<<Controller>> #F3E5F5
+    BackgroundColor<<DTO>> #FAFAFA
+}
+
+' --- CAMADAS ---
+package "1. Controllers" #E1BEE7 {
+    class ProductController <<Controller>>
+    class OrderController <<Controller>>
+}
+
+package "2. DTOs" #F5F5F5 {
+    class ProductDTO <<DTO>>
+    class OrderDTO <<DTO>>
+}
+
+package "3. Services" #FFE0B2 {
+    class ProductService <<Service>>
+    class OrderService <<Service>>
+}
+
+package "4. Repositories" #DCEDC8 {
+    interface ProductRepository <<Repository>>
+    interface OrderRepository <<Repository>>
+}
+
+package "5. Entities (Domain Layer)" #D1E9FF {
+    class Order <<Entity>>
+    class OrderItem <<Entity>>
+    class Product <<Entity>>
+    class Category <<Entity>>
+    class User <<Entity>>
+}
+
+' --- FLUXO DE DADOS CORRIGIDO (O caminho do DTO) ---
+' O DTO entra no Controller, que passa para o Service.
+' O Service devolve o DTO para o Controller.
+ProductController --> ProductDTO : "recebe entrada"
+ProductDTO --> ProductController : "é retornado"
+ProductController --> ProductService : "envia DTO"
+ProductService --> ProductController : "devolve DTO"
+
+' O Service conversa com o Repository usando as Entities
+ProductService --> ProductRepository : "chama"
+ProductRepository --> Product : "busca/salva"
+
+' --- RELACIONAMENTOS DE DOMÍNIO (BEM SEPARADOS) ---
+' Organizando para você entender quem pertence a quem
+Order "1" *-- "*" OrderItem : "contém"
+OrderItem "*" -- "1" Product : "refere-se a"
+Product "*" -- "*" Category : "pertence a"
+Order "*" -- "1" User : "pertence a"
+
+@enduml
