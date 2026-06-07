@@ -3,10 +3,7 @@ package com.devsuperior.dscommerce.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_user")
@@ -21,7 +18,12 @@ public class User {
     private String phone;
     private LocalDate birthDate;
     private String password;
-    private String[] roles;
+
+    @ManyToMany
+    @JoinTable(name = "tb_user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
@@ -29,13 +31,13 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String name, String email, String phone, String password, LocalDate birthDate, String[] roles, List<Order> orders) {
+    public User(Long id, String name, String email, String phone, LocalDate birthDate, String password, Set<Role> roles, List<Order> orders) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
-        this.password = password;
         this.birthDate = birthDate;
+        this.password = password;
         this.roles = roles;
         this.orders = orders;
     }
@@ -88,12 +90,21 @@ public class User {
         this.password = password;
     }
 
-    public String[] getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(String[] roles) {
-        this.roles = roles;
+    public void addRole(Role role) {
+        roles.add(role);
+    }
+
+    public boolean hasRole(String roleName) {
+        for (Role role : roles) {
+            if (role.getAuthority().equals(roleName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<Order> getOrders() {
@@ -122,7 +133,8 @@ public class User {
                 ", phone='" + phone + '\'' +
                 ", birthDate=" + birthDate +
                 ", password='" + password + '\'' +
-                ", roles=" + Arrays.toString(roles) +
+                ", roles=" + roles +
+                ", orders=" + orders +
                 '}';
     }
 }
