@@ -32,4 +32,16 @@ public class OrderController {
         // Controller sends a DTO to user
         return ResponseEntity.ok(dto);
     }
+
+    // Insert a new product
+    @PreAuthorize(("hasRole('ROLE_CLIENT')"))
+    @PostMapping
+    public ResponseEntity<OrderDTO> insert(@Valid @RequestBody OrderDTO dto) {
+        dto = service.insert(dto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(dto.getId()).toUri();
+        return ResponseEntity.created(uri).body(dto);
+    }
+
+
 }
