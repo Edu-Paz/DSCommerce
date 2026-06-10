@@ -28,12 +28,17 @@ public class OrderService {
     @Autowired
     private OrderItemRepository orderItemRepository;
 
+    @Autowired
+    private AuthService authService;
+
     // Search a product by id
     @Transactional(readOnly = true)
     public OrderDTO findById(Long id) {
         // Ask to repository to search the id in database
         Order order = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Resource not found"));
+        // Validates if user is the owner of the order or an admin
+        authService.validateSelfOrAdmin(order.getClient().getId());
         // Return a DTO to controller
         return new OrderDTO(order);
     }
