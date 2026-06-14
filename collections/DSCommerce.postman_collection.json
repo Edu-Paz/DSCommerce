@@ -1,0 +1,610 @@
+{
+  "info": {
+    "_postman_id": "7c3eda9a-54b9-424a-8714-4894e14d98c4",
+    "name": "DSCommerce",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "40914537"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (responseCode.code >= 200 && responseCode.code < 300) {\r",
+                  "var json = JSON.parse(responseBody);\r",
+                  "postman.setEnvironmentVariable('token', json.access_token);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{client-id}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{client-secret}}",
+                  "type": "string"
+                },
+                {
+                  "key": "showPassword",
+                  "value": false,
+                  "type": "boolean"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "username",
+                  "value": "{{username}}",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "text"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password",
+                  "type": "text"
+                },
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{host}}/oauth2/token",
+              "host": [
+                "{{host}}"
+              ],
+              "path": [
+                "oauth2",
+                "token"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Order",
+      "item": [
+        {
+          "name": "Order by id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "insomnia/10.3.0"
+              }
+            ],
+            "url": {
+              "raw": "{{host}}/orders/3",
+              "host": [
+                "{{host}}"
+              ],
+              "path": [
+                "orders",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New order",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "insomnia/10.3.0"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"productId\": 1,\n      \"quantity\": 2\n    },\n    {\n      \"productId\": 5,\n      \"quantity\": 1\n    }\n  ]\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/orders",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Product by id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "insomnia/10.3.0"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/products/2",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "products",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Edit product",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "User-Agent",
+                "value": "insomnia/10.3.0"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Meu novo produto\",\n    \"description\": \"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui ad, adipisci illum ipsam velit et odit eaque reprehenderit ex maxime delectus dolore labore, quisquam quae tempora natus esse aliquam veniam doloremque quam minima culpa alias maiores commodi. Perferendis enim\",\n    \"imgUrl\": \"https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/1-big.jpg\",\n    \"price\": 200.0,\n    \"categories\": [\n        {\n            \"id\": 2\n        },\n        {\n            \"id\": 3\n        }\n    ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/products/1",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "products",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New product",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "User-Agent",
+                "value": "insomnia/10.3.0"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Meu novo produto\",\n    \"description\": \"descrição mentirosa\",\n    \"imgUrl\": \"https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/1-big.jpg\",\n    \"price\": 200.0,\n    \"categories\": [\n        {\n            \"id\": 2\n        },\n        {\n            \"id\": 3\n        }\n    ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/products",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Products",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "insomnia/10.3.0"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/products?size=12&page=0&name=pc%20gamer",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "size",
+                  "value": "12"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "name",
+                  "value": "pc%20gamer"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Product by id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "insomnia/10.3.0"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/products/1",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "products",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "User Logged",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "User-Agent",
+                "value": "insomnia/10.3.0"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/users/me",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "users",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Category",
+      "item": [
+        {
+          "name": "Categories",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "insomnia/10.3.0"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/categories",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
