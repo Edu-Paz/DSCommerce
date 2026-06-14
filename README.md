@@ -9,6 +9,11 @@ DSCommerce is a RESTful API built with **Spring Boot 3** for managing a simplifi
 - H2 database integration with automated seeding.
 - RESTful standards and clean architecture.
 
+## Conceptual Data Model
+<img width="755" height="424" alt="Conceptual Data Model" src="https://github.com/user-attachments/assets/d75e1a90-1f04-4e92-b48a-c64a1a6057a0" />
+
+
+
 ## How to Run
 
 ### Prerequisites
