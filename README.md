@@ -69,13 +69,13 @@ The application features a centralized **Global Exception Handler** using `@Cont
 
 ### Execution
 1. **Clone the repository:**
-   git clone https://github.com/Edu-Paz/DSCommerce.git
+-  ```git clone https://github.com/Edu-Paz/DSCommerce.git```
 
-2. **Navigate to the directory:**
-   cd DSCommerce
+3. **Navigate to the directory:**
+- ```cd DSCommerce```
 
-3. **Run the application:**
-   ./mvnw spring-boot:run
+4. **Run the application:**
+- ```./mvnw spring-boot:run```
 
 The server will start at http://localhost:8080.
 
