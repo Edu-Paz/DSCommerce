@@ -10,11 +10,12 @@ import java.util.List;
 public class ProductDTO {
     private Long id;
     @Size(min = 3, max = 80, message = "Name must be between 3 and 80 characters")
-    @NotBlank(message = "Requested field")
+    @NotBlank(message = "Required field")
     private String name;
     @Size(min = 10, message = "Description must be more than 10 characters")
-    @NotBlank(message = "Requested field")
+    @NotBlank(message = "Required field")
     private String description;
+    @NotNull(message = "Required field")
     @Positive(message = "Price must be positive")
     private Double price;
     private String imgUrl;
